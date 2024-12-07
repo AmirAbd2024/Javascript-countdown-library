@@ -1,0 +1,31 @@
+﻿<html>
+
+<head>
+<script src="countdown.js"></script>
+</head>
+
+<body>
+
+<div id="idz"></div>
+<div id="idz2"></div>
+<div id="idz3"></div>
+
+<script>
+
+const t1 = new tinyCountDown("d-h-m-s","0-0-0-38","timerTick1();","timer1End();",500);
+t1.timerInit();
+const t2 = new tinyCountDown("sec",5,"timerTick2();","timer2End();",1000);
+t2.timerInit();
+const t3 = new tinyCountDown("sec",8,"timerTick3();");
+t3.timerInit();
+
+function timer1End(){alert("timer 1 is over");}
+function timer2End(){alert("timer 2 is over");}
+function timerTick1(){document.querySelector("#idz").innerHTML=t1.timerGetString();}
+function timerTick2(){document.querySelector("#idz2").innerHTML=t2.timerGetString();}
+function timerTick3(){document.querySelector("#idz3").innerHTML=t3.timerGetString();}
+
+</script>
+
+</body>
+</html>

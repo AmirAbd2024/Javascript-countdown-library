@@ -1,0 +1,11 @@
+/*countDown*/class tinyCountDown{constructor(format0,stval,ttf,tef,interval0){this.interval0=((interval0)? interval0:1000);
+this.format0=format0;this.stringstval=stval;this.stval=this.calcSeconds(this.clearAllInputs(stval,format0),format0);this.tmp;this.ts;this.daysr;this.hoursr;this.minutesr;this.secondsr;this.intval;this.tef=tef;this.ttf=ttf;this.err=0;}
+clearAllInputs(stval,format0){if(format0 != "sec"){let t=this.clearStringDateTimeFormat(stval);t=this.trimInputFormat(t);return t; }return stval;}
+clearStringDateTimeFormat(str){let t="";for(let b=0;b<str.length;b++){t+=((str[b]=="/" || str[b]==":")? "-":str[b]+"");}return t;}trimInputFormat(d){let x=d.split("-");let res="";let len=x.length;for(let a=0;a<len;a++){res+=((x[a]<10)?(x[a]*1):x[a]);if(a<len-1){res+="-";}}return res;}
+calcSeconds(val0,formatx){/*calculate seconds in any format*/if(formatx=="sec"){return val0;}else if(formatx=="d-h-m-s"){let x=val0.split("-");return ((x[0]*24*3600)+(x[1]*3600)+(x[2]*60)+(x[3]*1));}else if(formatx=="y-m-d-h-n-s"){
+let x=val0.split("-");let t=new tinyDate("client");let calcDays=(t.findDaysPast(x[0]+"-"+x[1]+"-"+x[2]))-(t.daysa);/*days between today and target*/return ((calcDays*24*3600)+(x[3]*3600)+(x[4]*60)+(x[5]*1));}else{return 0;}}
+serverModeInit(v){if(this.format0=="y-m-d-h-n-s"){let q=this.clearStringDateTimeFormat(this.stringstval);q=this.trimInputFormat(q);let x=q.split("-");let t=new tinyDate("client");let calcDays=(t.findDaysPast(x[0]+"-"+x[1]+"-"+x[2]))-(v);/*days between today and target*/
+let tmp=((calcDays*24*3600)+(x[3]*3600)+(x[4]*60)+(x[5]*1));return ((tmp>0)?tmp:0);}else{return 0;}}dotimer(){this.tmp=this.stval;this.ts=this.stval;this.daysr=Math.floor(this.ts/24/3600);this.ts=(this.ts%(24*3600));this.hoursr=Math.floor(this.ts/3600);this.ts=(this.ts%3600);
+this.minutesr=Math.floor(this.ts/60);this.ts=(this.ts%60);this.secondsr=Math.floor(this.ts);this.stval--;if(this.stval<0){clearInterval(this.intval);eval(this.ttf);eval(this.tef);}else{eval(this.ttf);}}
+timerInit(initMode,v){if(initMode=="server" && this.format0=="y-m-d-h-n-s"){this.stval=this.serverModeInit(v);if(this.stval==0){this.dotimer();return;}}this.dotimer();this.intval=setInterval(this.dotimer.bind(this),this.interval0);}
+timerGetString(){return this.daysr+":"+this.hoursr+":"+this.minutesr+":"+this.secondsr;}null0(){}}/*countDown*/
